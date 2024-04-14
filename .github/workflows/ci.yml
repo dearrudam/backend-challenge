@@ -41,7 +41,7 @@ jobs:
       run: |
         if [[ $(git log -1 --pretty=%B) =~ (ci ignore|ignore ci|doc:|docs:) ]]; then
           echo "Commit message contains 'ci ignore', 'ignore ci', 'doc:' or 'docs:', skipping build"
-          exit 78
+          exit 0
         fi
 
     - name: Build with Maven using JDK ${{ matrix.java }}
