@@ -31,6 +31,13 @@ Esta é uma classe que implementa `ConstraintValidator` da especificação https
 
 Esta é uma classe que define endpoints REST que seguem a especificação https://jakarta.ee/specifications/restful-ws/[Jakarta RESTful Web Services] para validar tokens JWT. Ela tem dois métodos, `validate` (que usa o `JwtValidador` como regra de negócio) e `validateWithBeanValidation` (que usa a anotacão `@JWT` e a especificação Jakarta Bean Validation por debaixo dos panos, executando a validação antes do método ser executado), que aceitam um token JWT como entrada e retornam uma resposta HTTP indicando se o token é válido.
 
+=== `ConstraintViolationExceptionMapper.java`
+
+Esta é uma classe que implementa a interface `ExceptionMapper` do https://jakarta.ee/specifications/restful-ws/[Jakarta RESTful Web Services]. Ela é usada para mapear exceções do tipo `ConstraintViolationException` para respostas HTTP. Essa exceção é oriunda de validações executadas pela implementação da especificação https://jakarta.ee/specifications/bean-validation/[Jakarta Bean Validation], o https://hibernate.org/validator/[Hibernate Validator].
+
+Caso alguma exceção do tipo `ConstraintViolationException` ocorra, no contexto deste projeto, a exceção será mapeada para uma resposta HTTP com o status `BAD_REQUEST`. O corpo da resposta é uma string que contém a mensagem de violação de restrição da exceção. Caso ocorra mais violações, esse mapper irá tratar todas as mensagens de violação de restrição da exceção concatenando-as e separado-as por vírgulas.
+
+
 == Classes de Teste
 
 === `TokenSupport.java`
@@ -61,3 +68,40 @@ Para executar o projeto, use o seguinte comando:
 ----
 ./mvnw compile quarkus:dev
 ----
+
+== Realizando testes pelo Maven
+
+Para executar os testes do projeto, use o seguinte comando:
+
+[source,bash]
+----
+./mvnw test
+----
+
+== Realizando testes pelo Swagger UI fornecido pelo Quarkus Dev Mode
+
+Primeiramente, inicialize o projeto utilizando o dev mode com o seguinte comando:
+
+[source,bash]
+----
+./mvnw compile quarkus:dev
+----
+
+Com isso, você já poderá acessar a documentação da API em `http://localhost:8080/q/swagger-ui/` e realizar os testes diretamente pela interface do Swagger.
+
+== Realizando testes pelo Insomnia
+
+Para executar os testes utilizando o Insomnia, importe as coleções do Insomnia a partir do arquivo `insomnia.yaml`. Segue abaixo os passos para realizar a importação:
+
+. Abra o aplicativo Insomnia.
+. Clique em "Application" no canto superior esquerdo e selecione "Preferences".
+. Na janela de preferências, clique na aba "Data".
+. Clique em "Import Data" e selecione "From File".
+. Navegue até o local do arquivo `insomnia.yaml` e clique em "Open".
+
+O Insomnia irá importar todas as coleções, ambientes e configurações definidas no arquivo `insomnia.yaml`.
+
+Garanta que as configurações importadas estão apontando para a host e porta do projeto corretamente. Caso contrário, você precisará ajustar as configurações manualmente.
+
+A configuração atual está apontando para `http://localhost:8080`, com isso, basta inicializar o projeto no modo Dev Mode e executar as requisições.
+
