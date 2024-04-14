@@ -22,7 +22,6 @@ public interface JwtValidator {
                     .and(Claim.ROLE::isValid)
                     .and(Claim.SEED::isValid);
 
-
     private static JsonObject extractClaims(String token) {
         var emptyClaims = Json.createObjectBuilder().build();
         if (token == null)
