@@ -1,0 +1,101 @@
+_type: export
+__export_format: 4
+__export_date: 2024-04-14T16:44:06.812Z
+__export_source: insomnia.desktop.app:v8.6.1
+resources:
+  - _id: req_664fb8695f0d46aabd05c6d72628b4cd
+    parentId: wrk_60857e41028f4af1812dcf8d5821f5de
+    modified: 1713113002350
+    created: 1713111581325
+    url: "{{ _.url }}/v1/jwt/validate"
+    name: Validate JWT v1
+    description: ""
+    method: POST
+    body:
+      mimeType: text/plain
+      text: eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJTZWVkIjoiNzg0MSIsIk5hbWUiOiJUb25pbmhvIsEFyYXVqbyJ9.QY05sIjtrcJnP533kQNk8QXcaleJ1Q01jWY_ZzIZuAg
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: text/plain
+      - name: User-Agent
+        value: insomnia/8.6.1
+    authentication: {}
+    metaSortKey: -1713111581325
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: wrk_60857e41028f4af1812dcf8d5821f5de
+    parentId: null
+    modified: 1713111519820
+    created: 1713111519820
+    name: backend-challenge
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_82afc65f48af4827ba066eae50111c55
+    parentId: wrk_60857e41028f4af1812dcf8d5821f5de
+    modified: 1713112993829
+    created: 1713111997935
+    url: "{{ _.url }}/v2/jwt/validate"
+    name: Validate JWT v2
+    description: ""
+    method: POST
+    body:
+      mimeType: text/plain
+      text: eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJTZWVkIjoiNzg0MSIsIk5hbWUiOiJUb25pbmhvIEFysYXVqbyJ9.QY05sIjtrcJnP533kQNk8QXcaleJ1Q01jWY_ZzIZuAg
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: text/plain
+      - name: User-Agent
+        value: insomnia/8.6.1
+    authentication: {}
+    metaSortKey: -1712417030800.5
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_2c8edb6d24024e99636cc3a11a80bb62bbded3a9
+    parentId: wrk_60857e41028f4af1812dcf8d5821f5de
+    modified: 1713111519822
+    created: 1713111519822
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1713111519822
+    _type: environment
+  - _id: jar_2c8edb6d24024e99636cc3a11a80bb62bbded3a9
+    parentId: wrk_60857e41028f4af1812dcf8d5821f5de
+    modified: 1713111519823
+    created: 1713111519823
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: env_94e052b534c649cf89f57d3cc5f0a715
+    parentId: env_2c8edb6d24024e99636cc3a11a80bb62bbded3a9
+    modified: 1713111755932
+    created: 1713111714649
+    name: local
+    data:
+      url: http://localhost:8080
+    dataPropertyOrder:
+      "&":
+        - url
+    color: null
+    isPrivate: false
+    metaSortKey: 1713111714650
+    _type: environment
