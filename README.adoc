@@ -11,11 +11,11 @@ Este é um projeto Java usando Quarkus e Maven. Ele foi projetado para validar J
 
 == Classes principais
 
-== `JwtValidator.java`
+=== `JwtValidator.java`
 
 Esta é uma interface que define a validação de tokens JWT. Ela contém uma constante `JWT_VALIDATION_RULES` que é um predicado. Este predicado é uma composição de várias regras de validação que verificam se um JsonObject representando um JWT é válido. As regras verificam se o JsonObject não é nulo, se contém apenas reivindicações suportadas e se cada reivindicação individual é válida. A interface também contém um método privado estático `extractClaims(String token)` que extrai as reivindicações de um token JWT. Este método divide o token em seções, decodifica a seção de reivindicações e a lê em um JsonObject. O método `isValid(String token)` usa as `JWT_VALIDATION_RULES` para testar se um token é válido. Ele faz isso extraindo as reivindicações do token e passando-as para o predicado `JWT_VALIDATION_RULES`.
 
-== `Claim.java`
+=== `Claim.java`
 
 Esta é uma enumeração que representa diferentes tipos de reivindicações que podem estar presentes em um JWT. Cada valor de enumeração tem um método `isValidClaim(JsonObject claims)` que verifica se a reivindicação é válida. Por exemplo, a reivindicação `NAME` é válida se o valor for uma string que não contém dígitos e cujo comprimento não excede 256 caracteres. A reivindicação `ROLE` é válida se o valor for uma das funções suportadas. A reivindicação `SEED` é válida se o valor for um número primo. A enumeração `Claim` também contém uma enumeração interna `Roles` que representa os papéis suportados. Além disso, a enumeração `Claim` contém um método `containsOnlySupportedClaims(JsonObject jsonObject)` que verifica se um JsonObject contém apenas reivindicações suportadas. Ele faz isso comparando as chaves do JsonObject com os rótulos das reivindicações suportadas.
 
