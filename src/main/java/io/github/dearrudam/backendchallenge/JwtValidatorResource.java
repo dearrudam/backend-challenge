@@ -1,6 +1,7 @@
 package io.github.dearrudam.backendchallenge;
 
 import io.github.dearrudam.backendchallenge.beanvalidation.constraints.JWT;
+import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -10,6 +11,7 @@ import jakarta.ws.rs.core.Response;
 
 import static jakarta.ws.rs.core.Response.Status.BAD_REQUEST;
 
+@RunOnVirtualThread
 @Path("/")
 @Consumes({MediaType.TEXT_PLAIN})
 @Produces({MediaType.TEXT_PLAIN})
