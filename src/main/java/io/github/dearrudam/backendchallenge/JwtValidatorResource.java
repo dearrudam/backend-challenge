@@ -27,7 +27,7 @@ public class JwtValidatorResource {
 
     @Path("/v2/jwt/validate")
     @POST
-    public Response validateWithBeanValidation(@JWT String token) {
+    public Response validateWithBeanValidation(@JWT(message = "falso") String token) {
         return Response.ok("verdadeiro").build();
     }
 

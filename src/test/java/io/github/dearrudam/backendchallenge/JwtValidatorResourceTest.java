@@ -74,7 +74,9 @@ class JwtValidatorResourceTest implements TokenSupport {
                     .body(token)
                     .post(URL)
                     .then()
-                    .statusCode(400);
+                    .statusCode(400)
+                    .contentType(ContentType.TEXT)
+                    .body(is("falso"));
         }
 
         @Test
