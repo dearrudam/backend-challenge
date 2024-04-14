@@ -37,12 +37,22 @@ jobs:
         java-version: ${{ matrix.java }}
         distribution: 'temurin'
         cache: maven
-    - name: Check the last commit message
-      run: |
-        if [[ $(git log -1 --pretty=%B) =~ (ci ignore|ignore ci|doc:|docs:) ]]; then
-          echo "Commit message contains 'ci ignore', 'ignore ci', 'doc:' or 'docs:', skipping build"
-          exit 0
-        fi
+
+    # Skip the build if the commit message contains [ci skip], [skip ci], [no ci], [ci skip-build], [skip-build ci], [no-build ci], [ci ignore], [ignore ci], [doc:] or [docs:] and keep the information to the next step verify if it should be executed
+    - name: Skip CI if necessary
+      id: skip-ci
+      run: echo "Checking commit message for [ci skip], [skip ci], [no ci], [ci skip-build], [skip-build ci], [no-build ci], [ci ignore], [ignore ci], [doc:] or [docs:]"
+      continue-on-error: true
 
     - name: Build with Maven using JDK ${{ matrix.java }}
+      if: ${{ !contains(github.event.head_commit.message, '[ci skip]') 
+          && !contains(github.event.head_commit.message, '[skip ci]') 
+          && !contains(github.event.head_commit.message, '[no ci]') 
+          && !contains(github.event.head_commit.message, '[ci skip-build]') 
+          && !contains(github.event.head_commit.message, '[skip-build ci]') 
+          && !contains(github.event.head_commit.message, '[no-build ci]') 
+          && !contains(github.event.head_commit.message, '[ci ignore]') 
+          && !contains(github.event.head_commit.message, '[ignore ci]') 
+          && !contains(github.event.head_commit.message, '[doc:]') 
+          && !contains(github.event.head_commit.message, '[docs:]') }}
       run: ./mvnw verify --file pom.xml
