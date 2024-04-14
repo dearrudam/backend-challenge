@@ -11,8 +11,14 @@ name: Java CI with Maven
 on:
   push:
     branches: [ "main" ]
+#    paths-ignore:
+#      - '**.adoc'
+#      - '**.md'
   pull_request:
     branches: [ "main" ]
+#    paths-ignore:
+#      - '**.adoc'
+#      - '**.md'
 
 jobs:
   build:
@@ -31,5 +37,12 @@ jobs:
         java-version: ${{ matrix.java }}
         distribution: 'temurin'
         cache: maven
+    - name: Check the last commit message
+      run: |
+        if [[ $(git log -1 --pretty=%B) =~ (ci ignore|ignore ci|doc:|docs:) ]]; then
+          echo "Commit message contains 'ci ignore', 'ignore ci', 'doc:' or 'docs:', skipping build"
+          exit 78
+        fi
+
     - name: Build with Maven using JDK ${{ matrix.java }}
       run: ./mvnw verify --file pom.xml
