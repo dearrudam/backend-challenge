@@ -78,9 +78,11 @@ Para executar os testes do projeto, use o seguinte comando:
 ./mvnw test
 ----
 
-== Realizando testes pelo Swagger UI fornecido pelo Quarkus Dev Mode
+== Realizando testes pelo Swagger UI fornecido pelo Quarkus
 
-Primeiramente, inicialize o projeto utilizando o dev mode com o seguinte comando:
+O projeto está configurado por padrão expor a documentação da API no endpoint `/q/swagger-ui/`.
+
+Para utilizá-lo, a aplicação deve estar em execução. Caso não esteja, e queira testar em Dev Mode, sigua o seguinte comando:
 
 [source,bash]
 ----
@@ -133,8 +135,12 @@ O pipeline realiza as seguintes ações:
 . Constrói uma imagem Docker a partir do Dockerfile localizado em `src/main/docker/Dockerfile.jvm`.
 . Faz login no Docker Hub usando as credenciais armazenadas nos segredos do GitHub.
 . Empurra a imagem Docker para o Docker Hub.
+. Instala o CLI do OpenShift.
+. Faz login no https://developers.redhat.com/developer-sandbox[OpenShift (Sandbox for free)].
+. Aplica os manifestos específicos.
 
 O pipeline é configurado para executar em uma única versão do JDK, conforme especificado na entrada do workflow.
+
 
 == Deployment no Kubernetes
 
