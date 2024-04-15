@@ -51,16 +51,17 @@ jobs:
       - name: Push Docker image to Docker Hub
         run: docker push $(grep "image:" target/kubernetes/kubernetes.yml | sed 's/.*image://g')
 
-#      - name: Install OpenShift CLI
-#        run: |
-#          curl -LO https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
-#          tar xvzf openshift-client-linux.tar.gz
-#          sudo mv oc /usr/local/bin/
-#
-#      - name: Login to OpenShift
-#        run: |
-#          oc login ${{ secrets.OPENSHIFT_SERVER_URL }} --token=${{ secrets.OPENSHIFT_TOKEN }}
-#
-#      - name: Apply specific manifest
-#        run: |
-#          oc apply -f target/kubernetes/kubernetes.yml
+      - name: Install OpenShift CLI
+        run: |
+          curl -LO https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
+          tar xvzf openshift-client-linux.tar.gz
+          sudo mv oc /usr/local/bin/
+
+      - name: Login to OpenShift
+        run: |
+          oc login ${{ secrets.OPENSHIFT_SERVER_URL }} --token=${{ secrets.OPENSHIFT_TOKEN }}
+
+      - name: Apply specific manifests
+        run: |
+          oc apply -f target/kubernetes/kubernetes.yml
+          oc apply -f src/main/k8s/openshift-route-backend-challenge.yml
