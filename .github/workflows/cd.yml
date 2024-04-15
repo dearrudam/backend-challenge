@@ -31,13 +31,13 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Setting up git config
-        run: |
-          git config --global user.name "GitHub"
-          git config --global user.email "noreply@github.com"
+#      - name: Setting up git config
+#        run: |
+#          git config --global user.name "GitHub"
+#          git config --global user.email "noreply@github.com"
 
       - name: Build with Maven
-        run: ./mvnw -B release:prepare release:perform
+        run: ./mvnw -B verify
 
       - name: Build Docker image
         run: docker build -f src/main/docker/Dockerfile.jvm -t $(grep "image:" target/kubernetes/kubernetes.yml | sed 's/.*image://g') .
