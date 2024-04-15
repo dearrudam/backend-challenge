@@ -1,0 +1,37 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"route.openshift.io/v1","kind":"Route","metadata":{"annotations":{"openshift.io/host.generated":"true"},"creationTimestamp":"2024-04-15T03:41:27Z","labels":{"app.kubernetes.io/managed-by":"quarkus","app.kubernetes.io/name":"backend-challenge"},"name":"backend-challenge","namespace":"dearrudam-dev","resourceVersion":"4159454280","uid":"92a5f7b0-4f63-46e8-8112-2c0d69f3aeef"},"spec":{"host":"backend-challenge-dearrudam-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com","port":{"targetPort":"http"},"tls":{"insecureEdgeTerminationPolicy":"Allow","termination":"edge"},"to":{"kind":"Service","name":"backend-challenge","weight":100},"wildcardPolicy":"None"},"status":{"ingress":[{"conditions":[{"lastTransitionTime":"2024-04-15T03:41:27Z","status":"True","type":"Admitted"}],"host":"backend-challenge-dearrudam-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com","routerCanonicalHostname":"router-default.apps.sandbox-m2.ll9k.p1.openshiftapps.com","routerName":"default","wildcardPolicy":"None"}]}}
+    openshift.io/host.generated: "true"
+  creationTimestamp: "2024-04-15T03:41:27Z"
+  labels:
+    app.kubernetes.io/managed-by: quarkus
+    app.kubernetes.io/name: backend-challenge
+  name: backend-challenge
+  namespace: dearrudam-dev
+  resourceVersion: "4159524299"
+  uid: 92a5f7b0-4f63-46e8-8112-2c0d69f3aeef
+spec:
+  host: backend-challenge-dearrudam-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com
+  port:
+    targetPort: http
+  tls:
+    insecureEdgeTerminationPolicy: Allow
+    termination: edge
+  to:
+    kind: Service
+    name: backend-challenge
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress:
+  - conditions:
+    - lastTransitionTime: "2024-04-15T03:41:27Z"
+      status: "True"
+      type: Admitted
+    host: backend-challenge-dearrudam-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com
+    routerCanonicalHostname: router-default.apps.sandbox-m2.ll9k.p1.openshiftapps.com
+    routerName: default
+    wildcardPolicy: None
