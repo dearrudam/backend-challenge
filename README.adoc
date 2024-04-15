@@ -26,7 +26,7 @@ Se você não tiver o Java instalado, ou se a versão instalada não atender aos
 
 === Instalando o Java com o SDKMAN no Linux e macOS
 
-O SDKMAN é uma ferramenta que permite gerenciar múltiplas versões do Java (e outras ferramentas de desenvolvimento de software) em um único sistema. Para instalar o SDKMAN e usar para instalar o Java, siga os passos abaixo:
+O https://sdkman.io/[SDKMAN] é uma ferramenta que permite gerenciar múltiplas versões do Java (e outras ferramentas de desenvolvimento de software) em um único sistema. Para instalar o SDKMAN e usar para instalar o Java, siga os passos abaixo:
 
 . Abra um terminal
 . Instale o SDKMAN com o seguinte comando:
@@ -82,46 +82,49 @@ Para executar o projeto, use o seguinte comando:
 ./mvnw compile quarkus:dev
 ----
 
-== Classes principais
 
-=== `JwtValidator.java`
+== Conhecendo as classes do projeto
+
+=== Classes principais
+
+==== `JwtValidator.java`
 
 Esta é uma interface que define a validação de tokens JWT. Ela contém uma constante `JWT_VALIDATION_RULES` que é um predicado. Este predicado é uma composição de várias regras de validação que verificam se um JsonObject representando um JWT é válido. As regras verificam se o JsonObject não é nulo, se contém apenas reivindicações suportadas e se cada reivindicação individual é válida. A interface também contém um método privado estático `extractClaims(String token)` que extrai as reivindicações de um token JWT. Este método divide o token em seções, decodifica a seção de reivindicações e a lê em um JsonObject. O método `isValid(String token)` usa as `JWT_VALIDATION_RULES` para testar se um token é válido. Ele faz isso extraindo as reivindicações do token e passando-as para o predicado `JWT_VALIDATION_RULES`.
 
-=== `Claim.java`
+==== `Claim.java`
 
 Esta é uma enumeração que representa diferentes tipos de reivindicações que podem estar presentes em um JWT. Cada valor de enumeração tem um método `isValidClaim(JsonObject claims)` que verifica se a reivindicação é válida. Por exemplo, a reivindicação `NAME` é válida se o valor for uma string que não contém dígitos e cujo comprimento não excede 256 caracteres. A reivindicação `ROLE` é válida se o valor for uma das funções suportadas. A reivindicação `SEED` é válida se o valor for um número primo. A enumeração `Claim` também contém uma enumeração interna `Roles` que representa os papéis suportados. Além disso, a enumeração `Claim` contém um método `containsOnlySupportedClaims(JsonObject jsonObject)` que verifica se um JsonObject contém apenas reivindicações suportadas. Ele faz isso comparando as chaves do JsonObject com os rótulos das reivindicações suportadas.
 
-=== `JWT.java`
+==== `JWT.java`
 
 Esta é uma anotação de validação personalizada que segue a especificação https://jakarta.ee/specifications/bean-validation/[Jakarta Bean Validation] que pode ser usada para validar se uma string é um token JWT válido. A validação é realizada pela classe `JWTConstraintValidator`.
 
-=== `JWTConstraintValidator.java`
+==== `JWTConstraintValidator.java`
 
 Esta é uma classe que implementa `ConstraintValidator` da especificação https://jakarta.ee/specifications/bean-validation/[Jakarta Bean Validation] e define a lógica de validação para a anotação `JWT`. Ela usa o método `isValid` da interface `JwtValidator` para verificar se uma string é um token JWT válido.
 
-=== `JwtValidatorResource.java`
+==== `JwtValidatorResource.java`
 
 Esta é uma classe que define endpoints REST que seguem a especificação https://jakarta.ee/specifications/restful-ws/[Jakarta RESTful Web Services] para validar tokens JWT. Ela tem dois métodos, `validate` (que usa o `JwtValidador` como regra de negócio) e `validateWithBeanValidation` (que usa a anotacão `@JWT` e a especificação Jakarta Bean Validation por debaixo dos panos, executando a validação antes do método ser executado), que aceitam um token JWT como entrada e retornam uma resposta HTTP indicando se o token é válido.
 
-=== `ConstraintViolationExceptionMapper.java`
+==== `ConstraintViolationExceptionMapper.java`
 
 Esta é uma classe que implementa a interface `ExceptionMapper` do https://jakarta.ee/specifications/restful-ws/[Jakarta RESTful Web Services]. Ela é usada para mapear exceções do tipo `ConstraintViolationException` para respostas HTTP. Essa exceção é oriunda de validações executadas pela implementação da especificação https://jakarta.ee/specifications/bean-validation/[Jakarta Bean Validation], o https://hibernate.org/validator/[Hibernate Validator].
 
 Caso alguma exceção do tipo `ConstraintViolationException` ocorra, no contexto deste projeto, a exceção será mapeada para uma resposta HTTP com o status `BAD_REQUEST`. O corpo da resposta é uma string que contém a mensagem de violação de restrição da exceção. Caso ocorra mais violações, esse mapper irá tratar todas as mensagens de violação de restrição da exceção concatenando-as e separado-as por vírgulas.
 
 
-== Classes de Teste
+=== Classes de Teste
 
-=== `TokenSupport.java`
+==== `TokenSupport.java`
 
 Esta é uma interface que fornece métodos para criar tokens JWT válidos e inválidos para testes. Ela também fornece um conjunto de cenários de tokens inválidos para testes parametrizados. Além disso, ela contém uma série de métodos estáticos e privados que ajudam a criar tokens JWT com diferentes tipos de reivindicações (claims). Essas reivindicações podem ser válidas ou inválidas, dependendo do cenário de teste.
 
-=== `JwtValidatorResourceIT.java` e `JwtValidatorResourceTest.java`
+==== `JwtValidatorResourceIT.java` e `JwtValidatorResourceTest.java`
 
 Estas são classes de teste para a classe `JwtValidatorResource`. Elas contêm testes para os endpoints `v1/jwt/validate` e `v2/jwt/validate`. Os testes verificam se os endpoints retornam os códigos de status HTTP corretos e as respostas corretas para tokens JWT válidos e inválidos.
 
-=== `JwtValidatorTest.java`
+==== `JwtValidatorTest.java`
 
 Esta é uma classe de teste para a interface `JwtValidator`. Ela contém testes para verificar se a validação de tokens JWT está funcionando corretamente.
 
