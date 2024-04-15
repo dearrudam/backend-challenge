@@ -11,7 +11,7 @@
     <scm>
         <connection>scm:git:${project.scm.url}</connection>
         <developerConnection>scm:git:${project.scm.url}</developerConnection>
-        <url>https://github.com/dearrudam/backend-challenge</url><!-- it's required by release processes -->
+        <url>https://github.com/dearrudam/backend-challenge.git</url><!-- it's required by release processes -->
         <tag>HEAD</tag>
     </scm>
 
