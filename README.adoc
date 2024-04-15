@@ -105,3 +105,58 @@ Garanta que as configurações importadas estão apontando para a host e porta d
 
 A configuração atual está apontando para `http://localhost:8080`, com isso, basta inicializar o projeto no modo Dev Mode e executar as requisições.
 
+== Integração Contínua e Entrega Contínua (CI/CD)
+
+Este projeto utiliza o GitHub Actions para implementar um pipeline de Integração Contínua (CI) e Entrega Contínua (CD). Existem dois arquivos de workflow principais localizados no diretório `.github/workflows`:
+
+=== `ci.yml`
+
+Este arquivo define o pipeline de Integração Contínua (CI). Ele é acionado em cada `push` ou `pull request` para a branch `main`, exceto quando os arquivos `.adoc` são modificados.
+
+O pipeline realiza as seguintes ações:
+
+. Verifica o código-fonte do repositório.
+. Configura o JDK com a versão especificada na matriz de estratégia.
+. Compila e verifica o projeto com Maven.
+
+O pipeline é configurado para executar em paralelo em várias versões do JDK, conforme especificado na matriz de estratégia.
+
+=== `cd.yml`
+
+Este arquivo define o pipeline de Entrega Contínua (CD). Ele é acionado manualmente através do recurso `workflow_dispatch` do GitHub Actions.
+
+O pipeline realiza as seguintes ações:
+
+. Verifica o código-fonte do repositório.
+. Configura o JDK com a versão especificada na entrada do workflow.
+. Compila o projeto com Maven.
+. Constrói uma imagem Docker a partir do Dockerfile localizado em `src/main/docker/Dockerfile.jvm`.
+. Faz login no Docker Hub usando as credenciais armazenadas nos segredos do GitHub.
+. Empurra a imagem Docker para o Docker Hub.
+
+O pipeline é configurado para executar em uma única versão do JDK, conforme especificado na entrada do workflow.
+
+== Deployment no Kubernetes
+
+Este projeto é configurado para gerar automaticamente os manifestos de deployment para Kubernetes. Isso é feito através do Quarkus Kubernetes extension, que é capaz de gerar automaticamente os recursos do Kubernetes ou Openshift com base em suas configurações de aplicativo.
+
+Os manifestos gerados automaticamente incluem:
+
+- Um Deployment para gerenciar a criação e escalonamento de Pods
+- Um Service para fornecer uma maneira consistente de acessar o aplicativo
+
+Os manifestos são gerados durante a fase de compilação do Maven e podem ser encontrados no diretório `target/kubernetes`.
+
+Para implantar o aplicativo no Kubernetes, você pode usar o comando `kubectl apply -f target/kubernetes/kubernetes.yml`.
+
+Lembre-se de que você precisa ter o `kubectl` instalado e configurado para se comunicar com seu cluster Kubernetes. Além disso, você deve ter as permissões necessárias para criar e gerenciar os recursos do Kubernetes no namespace desejado.
+
+== Monitoramento com OpenTelemetry
+
+Este projeto está configurado para usar o OpenTelemetry para coleta de dados de telemetria, como rastreamento de solicitações e métricas.
+
+Para habilitar o monitoramento com OpenTelemetry, é necessário aplicar os manifestos Kubernetes localizados no diretório `src/main/k8s`. Estes manifestos configuram os serviços necessários para o funcionamento do OpenTelemetry, como o Jaeger para rastreamento.
+
+Você pode aplicar os manifestos usando o comando `kubectl apply -f src/main/k8s`.
+
+Lembre-se de que você precisa ter o `kubectl` instalado e configurado para se comunicar com seu cluster Kubernetes. Além disso, você deve ter as permissões necessárias para criar e gerenciar os recursos do Kubernetes no namespace desejado.
