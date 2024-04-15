@@ -219,7 +219,7 @@ Para implantar o aplicativo no Kubernetes, você pode usar o comando `kubectl ap
 
 Lembre-se de que você precisa ter o `kubectl` instalado e configurado para se comunicar com seu cluster Kubernetes. Além disso, você deve ter as permissões necessárias para criar e gerenciar os recursos do Kubernetes no namespace desejado.
 
-== Monitoramento com OpenTelemetry
+== Coletando dados de telemetria com OpenTelemetry
 
 Este projeto está configurado para usar o OpenTelemetry para coleta de dados de telemetria, como rastreamento de solicitações e métricas.
 
