@@ -138,6 +138,8 @@ O pipeline é configurado para executar em uma única versão do JDK, conforme e
 
 == Deployment no Kubernetes
 
+NOTE: Esse passo requer que a imagem do projeto esteja disponível em um repositório de imagens acessível pelo Kubernetes.
+
 Este projeto é configurado para gerar automaticamente os manifestos de deployment para Kubernetes. Isso é feito através do Quarkus Kubernetes extension, que é capaz de gerar automaticamente os recursos do Kubernetes ou Openshift com base em suas configurações de aplicativo.
 
 Os manifestos gerados automaticamente incluem:
