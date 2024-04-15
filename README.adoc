@@ -30,25 +30,27 @@ O SDKMAN é uma ferramenta que permite gerenciar múltiplas versões do Java (e 
 
 . Abra um terminal
 . Instale o SDKMAN com o seguinte comando:
-
++
 [source,bash]
 ----
 curl -s "https://get.sdkman.io" | bash
 ----
 
 . Abra uma nova sessão de terminal ou execute o seguinte comando para garantir que o SDKMAN esteja disponível:
-
++
 [source,bash]
 ----
 source "$HOME/.sdkman/bin/sdkman-init.sh"
 ----
 
 . Instale o Java 21 ou superior com o seguinte comando:
-
++
 [source,bash]
 ----
-sdk install java 21.0.0
+sdk install java 21-graalce
 ----
++
+Neste comando, por exemplo, está instalando a versão 21 do GraalVM Community Edition.
 
 Consulte a documentação oficial do https://sdkman.io/install[SDKMAN] para obter mais informações e instruções de instalação.
 
