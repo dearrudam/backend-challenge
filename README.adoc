@@ -9,6 +9,77 @@ toc::[]
 
 Este é um projeto Java usando Quarkus e Maven. Ele foi projetado para validar JWTs (JSON Web Tokens) e inclui várias classes para lidar com diferentes aspectos desse processo.
 
+== Pré-requisitos
+
+Para construir e executar este projeto, você precisará ter o seguinte instalado em seu ambiente de desenvolvimento:
+
+. Java 21 ou superior
+
+Você pode verificar a versão do Java instalada em seu ambiente de desenvolvimento usando o seguinte comando:
+
+[source,bash]
+----
+java -version
+----
+
+Se você não tiver o Java instalado, ou se a versão instalada não atender aos requisitos, você precisará instalar ou atualizar essa ferramenta.
+
+=== Instalando o Java com o SDKMAN no Linux e macOS
+
+O SDKMAN é uma ferramenta que permite gerenciar múltiplas versões do Java (e outras ferramentas de desenvolvimento de software) em um único sistema. Para instalar o SDKMAN e usar para instalar o Java, siga os passos abaixo:
+
+. Abra um terminal
+. Instale o SDKMAN com o seguinte comando:
+
+[source,bash]
+----
+curl -s "https://get.sdkman.io" | bash
+----
+
+. Abra uma nova sessão de terminal ou execute o seguinte comando para garantir que o SDKMAN esteja disponível:
+
+[source,bash]
+----
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+----
+
+. Instale o Java 21 ou superior com o seguinte comando:
+
+[source,bash]
+----
+sdk install java 21.0.0
+----
+
+Consulte a documentação oficial do https://sdkman.io/install[SDKMAN] para obter mais informações e instruções de instalação.
+
+=== Instalando o Java no Windows
+
+Para instalar o Java no Windows, você pode baixar o instalador do site oficial do https://www.oracle.com/java/technologies/javase-jdk11-downloads.html[Oracle]. Siga os passos abaixo:
+
+. Acesse o site oficial do Oracle.
+. Clique no botão "Download" para a versão do Java que você deseja instalar.
+. Aceite o acordo de licença.
+. Clique no link para o instalador do Windows para baixar o arquivo de instalação.
+. Execute o arquivo de instalação e siga as instruções na tela para instalar o Java.
+
+=== Maven Wrapper
+
+Este projeto utiliza o Maven Wrapper, portanto, não é necessário instalar o Maven localmente. O Maven Wrapper é uma excelente opção para projetos que precisam de uma versão específica do Maven (ou para usuários que não querem instalar o Maven em tudo). Ele baixa automaticamente a versão correta do Maven para o seu projeto e a coloca no diretório `.mvn`.
+
+Para construir o projeto, você pode usar o seguinte comando:
+
+[source,bash]
+----
+./mvnw clean package
+----
+
+Para executar o projeto, use o seguinte comando:
+
+[source,bash]
+----
+./mvnw compile quarkus:dev
+----
+
 == Classes principais
 
 === `JwtValidator.java`
@@ -52,22 +123,6 @@ Estas são classes de teste para a classe `JwtValidatorResource`. Elas contêm t
 
 Esta é uma classe de teste para a interface `JwtValidator`. Ela contém testes para verificar se a validação de tokens JWT está funcionando corretamente.
 
-
-== Construindo e Executando o Projeto
-
-Para construir o projeto, navegue até o diretório do projeto no seu terminal e execute o seguinte comando:
-
-[source,bash]
-----
-./mvnw clean package
-----
-
-Para executar o projeto, use o seguinte comando:
-
-[source,bash]
-----
-./mvnw compile quarkus:dev
-----
 
 == Realizando testes pelo Maven
 
