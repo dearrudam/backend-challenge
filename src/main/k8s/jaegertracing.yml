@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jaeger
+  labels:
+    app: jaeger
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jaeger
+  template:
+    metadata:
+      labels:
+        app: jaeger
+    spec:
+      containers:
+      - name: jaeger
+        image: jaegertracing/all-in-one:latest
+        ports:
+        - containerPort: 5775
+          protocol: UDP
+        - containerPort: 6831
+          protocol: UDP
+        - containerPort: 6832
+          protocol: UDP
+        - containerPort: 5775
+        - containerPort: 5778
+        - containerPort: 16686
+        - containerPort: 4317
+        - containerPort: 4318
+        - containerPort: 14268
+        - containerPort: 14250
+        - containerPort: 9411
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaeger
+  labels:
+    app: jaeger
+spec:
+  ports:
+  - name: agent-compact
+    port: 5775
+    protocol: UDP
+  - name: agent-binary
+    port: 6831
+    protocol: UDP
+  - name: agent-binary2
+    port: 6832
+    protocol: UDP
+  - name: server-config
+    port: 5778
+  - name: server-frontend
+    port: 16686
+  - name: collector-grpc
+    port: 4317
+  - name: collector-http
+    port: 4318
+  - name: collector1
+    port: 14268
+  - name: collector-model-proto
+    port: 14250
+  - name: zipkin
+    port: 9411
+  selector:
+    app: jaeger

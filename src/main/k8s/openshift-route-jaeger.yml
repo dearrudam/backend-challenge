@@ -1,0 +1,74 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: jaeger
+  namespace: dearrudam-dev
+  uid: 3595d0f6-7d23-4826-8c4c-55135e4ebe4e
+  resourceVersion: '4159403298'
+  creationTimestamp: '2024-04-15T04:09:36Z'
+  labels:
+    app: jaeger
+  annotations:
+    openshift.io/host.generated: 'true'
+  managedFields:
+    - manager: oc
+      operation: Update
+      apiVersion: route.openshift.io/v1
+      time: '2024-04-15T04:09:36Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:labels':
+            .: {}
+            'f:app': {}
+        'f:spec':
+          'f:port': {}
+          'f:to':
+            'f:kind': {}
+            'f:name': {}
+            'f:weight': {}
+          'f:wildcardPolicy': {}
+    - manager: openshift-router
+      operation: Update
+      apiVersion: route.openshift.io/v1
+      time: '2024-04-15T04:09:36Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:status':
+          'f:ingress': {}
+      subresource: status
+    - manager: Mozilla
+      operation: Update
+      apiVersion: route.openshift.io/v1
+      time: '2024-04-15T04:42:51Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:port':
+            'f:targetPort': {}
+          'f:tls':
+            .: {}
+            'f:insecureEdgeTerminationPolicy': {}
+            'f:termination': {}
+spec:
+  host: jaeger-dearrudam-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com
+  to:
+    kind: Service
+    name: jaeger
+    weight: 100
+  port:
+    targetPort: server-frontend
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Allow
+  wildcardPolicy: None
+status:
+  ingress:
+    - host: jaeger-dearrudam-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com
+      routerName: default
+      conditions:
+        - type: Admitted
+          status: 'True'
+          lastTransitionTime: '2024-04-15T04:09:36Z'
+      wildcardPolicy: None
+      routerCanonicalHostname: router-default.apps.sandbox-m2.ll9k.p1.openshiftapps.com
